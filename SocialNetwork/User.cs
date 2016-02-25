@@ -1,105 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialNetwork
 {
     public class User
     {
-        private string username;
-        private string password;
-        private string firstName;
-        private string lastName;
-
-
-        public User()
+        public User(string userName, string password, string firstName, string lastName)
         {
+            if (string.IsNullOrWhiteSpace(userName) == true)
+                throw new ArgumentNullException(nameof(userName));
 
-        }
-        public string Username
-        {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                if (value == string.Empty)
-                {
-                    //throw new Exception("You cannot leave a blank field");
-                }
-                else
-                {
-                    this.username = value;
-                }
-            }
+            if (string.IsNullOrWhiteSpace(password) == true)
+                throw new ArgumentNullException(nameof(password));
 
+            if (string.IsNullOrWhiteSpace(firstName) == true)
+                throw new ArgumentNullException(nameof(firstName));
+
+            if (string.IsNullOrWhiteSpace(lastName) == true)
+                throw new ArgumentNullException(nameof(lastName));
+
+            UserName = userName;
+            Password = password;
+            FirstName = firstName;
+            LastName = lastName;
         }
 
-        public string Password
-        {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                this.password = value;
-            }
-        }
+        public string UserName { get; private set; }
 
-        public string FirstName
-        {
-            get
-            {
-                return firstName;
-            }
-            set
-            {
-                this.firstName = value;
-            }
-        }
+        public string Password { get; private set; }
 
-        public string LastName
-        {
-            get
-            {
-                return lastName;
-            }
-            set
-            {
-                this.lastName = value;
-            }
-        }
+        public string FirstName { get; private set; }
 
-
-
-
-        public static List<User> GetAllUsers()
-        {
-            var users = new List<User>();
-            if (File.Exists("users.txt"))
-            {
-                var stream = new FileStream("users.txt", FileMode.Open, FileAccess.Read);
-                var reader = new StreamReader(stream);
-
-                while (reader.EndOfStream == false)
-                {
-                    var user = new User();
-                    user.Username = reader.ReadLine();
-                    user.Password = reader.ReadLine();
-                    user.FirstName = reader.ReadLine();
-                    user.LastName = reader.ReadLine();
-                    users.Add(user);
-                }
-                reader.Close();
-                stream.Close();
-
-            }
-            return users;
-        }
+        public string LastName { get; private set; }
     }
 }

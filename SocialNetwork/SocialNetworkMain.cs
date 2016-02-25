@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
+using SocialNetwork.Repositories;
 
 namespace SocialNetwork
 {
@@ -14,9 +13,11 @@ namespace SocialNetwork
         [STAThread]
         static void Main()
         {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "users.txt");
+            IUserRepository userRepository = new UserFileRepository(path);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InitialForm());
+            Application.Run(new InitialForm(userRepository));
         }
     }
 }
