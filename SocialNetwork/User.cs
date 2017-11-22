@@ -1,7 +1,9 @@
 ﻿using System;
 
+
 namespace SocialNetwork
 {
+
     public class User
     {
         public User(string userName, string password, string firstName, string lastName)
